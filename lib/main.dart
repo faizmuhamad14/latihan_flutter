@@ -17,29 +17,24 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
           elevation: 0,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(23.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "Muhamad Faiz",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                ],
-              ),
-              Row(children: [Icon(Icons.location_on), Text("Jakarta Selatan")]),
-              Row(
-                children: [
-                  Text(
-                    "Halo saya dipanggil Faiz, saya peserta PPKD Jakpus",
-                    style: TextStyle(fontSize: 13, color: Colors.red[600]),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+
+          children: [
+            Text(
+              "Muhamad Faiz",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [Icon(Icons.location_off), Text("Jakarta Selatan")],
+            ),
+            Text(
+              "Saya Mahasiswa di Universitas Indraprasta PGRI",
+              style: TextStyle(color: Colors.red[600], fontSize: 12),
+            ),
+          ],
         ),
       ),
     );
