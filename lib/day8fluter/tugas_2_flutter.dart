@@ -62,6 +62,6 @@ class Latihan2flutter extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ); //materiaApp
   }
 }
