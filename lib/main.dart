@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:latihan_flutter/day8fluter/tugas_2_flutter.dart';
+import 'package:latihan_flutter/day13/sign_in.dart';
+import 'package:latihan_flutter/day13/sign_up.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,6 +8,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,12 +31,15 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: .fromSeed(
-          seedColor: const Color.fromARGB(255, 177, 12, 12),
-          // Warna.biru
-        ),
+        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Latihan2flutter(),
+      // home: SignInPage(),
+      initialRoute: SignInPage.routeName,
+
+      routes: {
+        SignInPage.routeName: (context) => const SignInPage(),
+        SignUpPage.routeName: (context) => const SignUpPage(),
+      },
     );
   }
 }
