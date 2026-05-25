@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:latihan_flutter/day13/sign_in.dart';
-import 'package:latihan_flutter/day13/sign_up.dart';
-import 'package:latihan_flutter/day15/tugas_7_flutter.dart';
+import 'package:latihan_flutter/day17/mainScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,13 +33,9 @@ class MyApp extends StatelessWidget {
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
       // home: SignInPage(),
-      initialRoute: Latihan7Flutter.routeName,
+      initialRoute: Mainscreen.routeName,
 
-      routes: {
-        SignInPage.routeName: (context) => const SignInPage(),
-        SignUpPage.routeName: (context) => const SignUpPage(),
-        Latihan7Flutter.routeName: (context) => const Latihan7Flutter(),
-      },
+      routes: {Mainscreen.routeName: (context) => const Mainscreen()},
     );
   }
 }
