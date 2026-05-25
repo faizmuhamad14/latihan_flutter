@@ -9,7 +9,6 @@ class Latihan7Flutter extends StatefulWidget {
 }
 
 class _Latihan7FlutterState extends State<Latihan7Flutter> {
-  int _selectedIndex = 0;
   bool isDark = false;
   bool isOn = false;
   bool isCheck = false;
@@ -18,72 +17,12 @@ class _Latihan7FlutterState extends State<Latihan7Flutter> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    Navigator.pop(context); //close drawer
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blue,
-          foregroundColor: Colors.white,
-        ),
-
-        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.black)),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Color(0xFF111417),
-        scaffoldBackgroundColor: Color(0xFF111417),
-        appBarTheme: AppBarTheme(
-          foregroundColor: Color(0xFFE1E2E7),
-          backgroundColor: Color(0xFF111417),
-        ),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.white, fontSize: 16),
-        ),
-      ),
-      themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-      home: Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              const DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue),
-                child: Text(
-                  "data",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text("home"),
-                selected: _selectedIndex == 0,
-                onTap: () {
-                  _onItemTapped(0);
-                },
-              ),
-            ],
-          ),
-        ),
-        appBar: AppBar(title: Text("Form PetShop"), centerTitle: true),
-        body: SingleChildScrollView(
-          child: Container(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),
@@ -124,7 +63,10 @@ class _Latihan7FlutterState extends State<Latihan7Flutter> {
                   children: [
                     Row(
                       children: [
-                        Text("Anda Setuju dengan ketentuan PetShop"),
+                        Expanded(
+                          child: Text("Anda Setuju dengan ketentuan PetShop"),
+                        ),
+
                         Checkbox(
                           value: isCheck,
                           onChanged: (bool? newValue) {
@@ -219,7 +161,7 @@ class _Latihan7FlutterState extends State<Latihan7Flutter> {
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
