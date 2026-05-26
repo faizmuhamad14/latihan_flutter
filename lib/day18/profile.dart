@@ -6,10 +6,10 @@ class ProfilePage2 extends StatefulWidget {
   const ProfilePage2({required this.email, super.key, required this.kota});
 
   @override
-  State<ProfilePage2> createState() => _ProfilePageState();
+  State<ProfilePage2> createState() => _ProfilePage2State();
 }
 
-class _ProfilePageState extends State<ProfilePage2> {
+class _ProfilePage2State extends State<ProfilePage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:latihan_flutter/day15/profile.dart';
+import 'package:latihan_flutter/day18/profile.dart';
 
 class SignUpPage2 extends StatefulWidget {
   const SignUpPage2({super.key});
@@ -203,7 +203,7 @@ class _SignUpPageState extends State<SignUpPage2> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    "Anda berhasil membuat  ${emailController.text}",
+                                    "Anda berhasil membuat Akun, Selamat Datang ! ${emailController.text}",
                                   ),
                                 ],
                               ),
@@ -214,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage2> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ProfilePage(
+                                        builder: (context) => ProfilePage2(
                                           email: emailController.text,
                                           kota: kotaController.text,
                                         ),
