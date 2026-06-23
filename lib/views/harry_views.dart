@@ -39,6 +39,13 @@ class _HarryViewsState extends State<HarryViews> {
           }
 
           final characters = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: characters.length,
+            itemBuilder: (context, index) {
+              return null;
+            },
+          );
         },
       ),
     );
