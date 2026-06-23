@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:latihan_flutter/day15/profile.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -10,6 +12,9 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController kotaController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,180 +38,248 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: EdgeInsets.symmetric(horizontal: 5),
             margin: EdgeInsets.all(24),
             child: SingleChildScrollView(
-              child: Column(
-                spacing: 9,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xffaec6cf),
-                    ),
-                    child: Icon(Icons.favorite),
-                  ),
-                  Text(
-                    "Buat Akun Baru",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    textAlign: TextAlign.center,
-                    "Bergabunglah dengan Sahabat Bulu untuk merawat hewan peliharaan Anda dengan lebih baik.",
-                  ),
-                  // SizedBox(height: 15),
-                  Column(
-                    spacing: 7,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Nama Lengkap",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          hintText: "Masukkan nama lengkap anda",
-                          prefixIcon: Icon(Icons.person),
-                        ),
-                      ),
-                      Text(
-                        "Email",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          hintText: "Masukkan email anda",
-                          prefixIcon: Icon(Icons.email),
-                        ),
-                      ),
-                      Text(
-                        "Kata Sandi",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          border: OutlineInputBorder(),
-                          hintText: "Buat kata sandi",
-                          prefixIcon: Icon(Icons.lock),
-                        ),
-                      ),
-                      Text(
-                        "Konfirmasi Kata Sandi",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          hintText: "Ulangi kata sandi",
-                          prefixIcon: Icon(Icons.sync_lock),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      // color: Color(0xffaec6cf),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  spacing: 9,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: Colors.blue[100],
+                        shape: BoxShape.circle,
+                        color: Color(0xffaec6cf),
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 8,
-                        children: [
-                          Icon(Icons.shield),
-                          Expanded(
-                            child: Text(
-                              "Data Anda dan hewan peliharaan Anda aman bersama Kami. Kami menghargai privasi dan keamanan Anda",
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ),
-                        ],
+                      child: Icon(Icons.favorite),
+                    ),
+                    Text(
+                      "Buat Akun Baru",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 24),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(color: Colors.black, width: 1),
-                      backgroundColor: Color(0xFFaec6cf),
+                    Text(
+                      textAlign: TextAlign.center,
+                      "Bergabunglah dengan Sahabat Bulu untuk merawat hewan peliharaan Anda dengan lebih baik.",
                     ),
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    // SizedBox(height: 15),
+                    Column(
+                      spacing: 7,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Daftar",
-                          style: TextStyle(
-                            color: Color(0xFF777777),
-                            fontSize: 16,
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_right_alt_sharp,
-                          color: Color(0xFF777777),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text.rich(
-                    TextSpan(
-                      text: "Sudah punya akun? ",
-                      style: TextStyle(fontSize: 16),
-                      children: [
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () =>
-                                Navigator.pushNamed(context, '/signin'),
-                          text: "Masuk di sini",
+                          "Nama Lengkap",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
                         ),
+                        TextFormField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            labelText: "Masukkan nama",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "tidak boleh kosong";
+                            }
+                            return null;
+                          },
+                        ),
+                        Text(
+                          "Email",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Masukkam alamat email",
+                            hintText: "Masukkan alamat email",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Email tidak boleh kosong";
+                            } else if (!value.contains('@')) {
+                              return "Format email tidak valid";
+                            }
+                            return null;
+                          },
+                        ),
+
+                        Text(
+                          "Nomer",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Nomer",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+
+                        Text(
+                          "Kota",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                        TextFormField(
+                          controller: kotaController,
+                          decoration: InputDecoration(
+                            labelText: "Kota",
+                            hintText: "Kota",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "tidak boleh kosong";
+                            }
+                            return null;
+                          },
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        // color: Color(0xffaec6cf),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.blue[100],
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
+                          children: [
+                            Icon(Icons.shield),
+                            Expanded(
+                              child: Text(
+                                "Data Anda dan hewan peliharaan Anda aman bersama Kami. Kami menghargai privasi dan keamanan Anda",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 24),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(color: Colors.black, width: 1),
+                        backgroundColor: Color(0xFFaec6cf),
+                      ),
+
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          print("Sudah memenuhi syarat");
+
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("Berhasil"),
+
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Anda berhasil membuat  ${emailController.text}",
+                                  ),
+                                ],
+                              ),
+
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ProfilePage(
+                                          email: emailController.text,
+                                          kota: kotaController.text,
+                                        ),
+                                      ),
+                                    );
+                                  },
+
+                                  child: Text("Lanjutkan"),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          print(emailController.text);
+
+                          Fluttertoast.showToast(
+                            msg: "Silakan periksa kembali",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        }
+                      },
+
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Daftar",
+                            style: TextStyle(
+                              color: Color(0xFF777777),
+                              fontSize: 16,
+                            ),
+                          ),
+
+                          Icon(
+                            Icons.arrow_right_alt_sharp,
+                            color: Color(0xFF777777),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        text: "Sudah punya akun? ",
+                        style: TextStyle(fontSize: 16),
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () =>
+                                  Navigator.pushNamed(context, '/signin'),
+                            text: "Masuk di sini",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

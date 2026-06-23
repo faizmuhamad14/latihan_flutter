@@ -44,14 +44,34 @@ class Latihan2flutter extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
+                    height: 70,
                     color: Colors.blue[500],
-                    child: Text("Terjual"),
+                    child: Column(
+                      children: [
+                        Padding(padding: EdgeInsetsGeometry.all(1)),
+                        Text(
+                          "456",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text("Terjual"),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Container(
+                    height: 70,
                     color: Colors.red[500],
-                    child: Center(child: Text("Rating")),
+                    child: Column(
+                      children: [
+                        Padding(padding: EdgeInsetsGeometry.all(2)),
+                        Icon(Icons.star),
+                        Text("Rating"),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -59,6 +79,8 @@ class Latihan2flutter extends StatelessWidget {
             SizedBox(height: 20),
             Padding(padding: EdgeInsetsGeometry.only(left: 20)),
             Text("Toko terpercaya 100%"),
+            SizedBox(height: 20),
+            Container(height: 70, width: 70),
           ],
         ),
       ),

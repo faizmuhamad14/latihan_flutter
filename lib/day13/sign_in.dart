@@ -10,6 +10,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,137 +77,161 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Column(
-                      spacing: 12,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Email",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: "Masukkam alamat email",
-                            hintText: "Masukkan alamat email",
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        spacing: 12,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Email",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Email tidak boleh kosong";
-                            } else if (!value.contains('@')) {
-                              return "Format email tidak valid";
-                            }
-                            return null;
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Kata Sandi",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Masukkam alamat email",
+                              hintText: "Masukkan alamat email",
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
                               ),
                             ),
-                            Text(
-                              "Lupa kata sandi?",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4B626A),
-                              ),
-                            ),
-                          ],
-                        ),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: "Masukkan kata sandi",
-                            hintText: "Masukkan kata sandi",
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Email tidak boleh kosong";
+                              } else if (!value.contains('@')) {
+                                return "Format email tidak valid";
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Kata sandi tidak boleh kosong";
-                            }
-                            return null;
-                          },
-                        ),
-                        // Text(
-                        //   "Email",
-                        //   style: TextStyle(
-                        //     fontWeight: FontWeight.w600,
-                        //     fontSize: 16,
-                        //   ),
-                        // ),
-                        // TextField(
-                        //   decoration: InputDecoration(
-                        //     enabledBorder: OutlineInputBorder(
-                        //       borderSide: BorderSide(
-                        //         width: 1,
-                        //         color: Color(0xFFC2C7CA),
-                        //       ),
-                        //     ),
-                        //     hintText: "Masukkan alamat email",
-                        //   ),
-                        // ),
-                        // SizedBox(),
-                        // Row(
-                        //   children: [
-                        //     Text(
-                        //       "Kata Sandi",
-                        //       style: TextStyle(
-                        //         fontWeight: FontWeight.w600,
-                        //         fontSize: 16,
-                        //       ),
-                        //     ),
-                        //     Text("Lupa Kata Sandi?"),
-                        //   ],
-                        // ),
-                        // TextField(
-                        //   decoration: InputDecoration(
-                        //     enabledBorder: OutlineInputBorder(
-                        //       borderSide: BorderSide(
-                        //         width: 1,
-                        //         color: Color(0xFFC2C7CA),
-                        //       ),
-                        //     ),
-                        //     hintText: "Masukkan kata sandi",
-                        //   ),
-                        // ),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusGeometry.circular(8),
-                            ),
-                            elevation: 0,
-                            side: BorderSide(color: Color(0xFFC2C7CA)),
-                            backgroundColor: Color(0xFFAEC6CF),
-                          ),
-                          onPressed: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Masuk",
+                                "Kata Sandi",
                                 style: TextStyle(
-                                  color: Color(0xFF091D2E),
-                                  fontSize: 20,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Icon(Icons.login, color: Color(0xFF091D2E)),
+                              Text(
+                                "Lupa kata sandi?",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF4B626A),
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Masukkan kata sandi",
+                              hintText: "Masukkan kata sandi",
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Kata sandi tidak boleh kosong";
+                              }
+                              return null;
+                            },
+                          ),
+                          // Text(
+                          //   "Email",
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.w600,
+                          //     fontSize: 16,
+                          //   ),
+                          // ),
+                          // TextField(
+                          //   decoration: InputDecoration(
+                          //     enabledBorder: OutlineInputBorder(
+                          //       borderSide: BorderSide(
+                          //         width: 1,
+                          //         color: Color(0xFFC2C7CA),
+                          //       ),
+                          //     ),
+                          //     hintText: "Masukkan alamat email",
+                          //   ),
+                          // ),
+                          // SizedBox(),
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       "Kata Sandi",
+                          //       style: TextStyle(
+                          //         fontWeight: FontWeight.w600,
+                          //         fontSize: 16,
+                          //       ),
+                          //     ),
+                          //     Text("Lupa Kata Sandi?"),
+                          //   ],
+                          // ),
+                          // TextField(
+                          //   decoration: InputDecoration(
+                          //     enabledBorder: OutlineInputBorder(
+                          //       borderSide: BorderSide(
+                          //         width: 1,
+                          //         color: Color(0xFFC2C7CA),
+                          //       ),
+                          //     ),
+                          //     hintText: "Masukkan kata sandi",
+                          //   ),
+                          // ),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadiusGeometry.circular(8),
+                              ),
+                              elevation: 0,
+                              side: BorderSide(color: Color(0xFFC2C7CA)),
+                              backgroundColor: Color(0xFFAEC6CF),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                print("Sudah memenuhi syarat");
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Berhasil"),
+                                      content: Text("Anda berhasil Login"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Lanjut"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Masuk",
+                                  style: TextStyle(
+                                    color: Color(0xFF091D2E),
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                Icon(Icons.login, color: Color(0xFF091D2E)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 60),
                     Text.rich(

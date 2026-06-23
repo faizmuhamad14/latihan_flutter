@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:latihan_flutter/day15/tugas_8_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:latihan_flutter/database/preference.dart';
+import 'package:latihan_flutter/day18/sign_up.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
+  await Preference.init();
   runApp(const MyApp());
 }
 
@@ -10,9 +15,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Latihan8Flutter(),
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: SignUpPage2());
   }
 }

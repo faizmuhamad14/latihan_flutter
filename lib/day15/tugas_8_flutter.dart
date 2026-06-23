@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:latihan_flutter/day15/profile.dart';
 import 'package:latihan_flutter/day15/tugas_7_flutter.dart';
 
 class Latihan8Flutter extends StatefulWidget {
@@ -13,7 +12,7 @@ class _MainscreenState extends State<Latihan8Flutter> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     Latihan7Flutter(),
-    ProfilePage(),
+    // ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

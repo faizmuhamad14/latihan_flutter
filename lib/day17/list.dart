@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class ListDay17 extends StatefulWidget {
   const ListDay17({super.key});
-  static const String routeName = '/list';
 
   @override
   State<ListDay17> createState() => _ListDay17State();
