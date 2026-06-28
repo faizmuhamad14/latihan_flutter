@@ -51,7 +51,8 @@ class HarryDetailViews extends StatelessWidget {
                 children: [
                   Image.network(
                     character.image,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.topCenter,
                     errorBuilder: (context, error, stack) => Container(
                       color: accent.withValues(alpha: 0.4),
                       child: const Icon(

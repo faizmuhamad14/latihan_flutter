@@ -87,222 +87,238 @@ class _HarryViewsState extends State<HarryViews> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.neutral,
-      body: FutureBuilder<List<Welcome>>(
-        future: futureCharacters,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Container(
+        margin: EdgeInsets.fromLTRB(0, 28, 0, 0),
+        child: FutureBuilder<List<Welcome>>(
+          future: futureCharacters,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          // Error
-          if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
-          }
+            // Error
+            if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            }
 
-          // Tidak ada data
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("Data kosong"));
-          }
+            // Tidak ada data
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("Data kosong"));
+            }
 
-          final characters = snapshot.data!;
+            final characters = snapshot.data!;
 
-          final filteredCharacters = characters.where((character) {
-            final matchesSearch = character.name.toLowerCase().contains(
-              searchController.text.toLowerCase(),
-            );
-            final matchesHouse =
-                selectedHouse == null || character.house == selectedHouse;
-            return matchesSearch && matchesHouse;
-          }).toList();
+            final filteredCharacters = characters.where((character) {
+              final matchesSearch = character.name.toLowerCase().contains(
+                searchController.text.toLowerCase(),
+              );
+              final matchesHouse =
+                  selectedHouse == null || character.house == selectedHouse;
+              return matchesSearch && matchesHouse;
+            }).toList();
 
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: TextField(
-                  controller: searchController,
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextField(
+                    controller: searchController,
+                    style: const TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
 
-                  onChanged: (value) {
-                    setState(() {});
-                  },
+                    onChanged: (value) {
+                      setState(() {});
+                    },
 
-                  decoration: InputDecoration(
-                    hintText: "Search Character...",
-                    prefixIcon: const Icon(Icons.search),
+                    decoration: InputDecoration(
+                      hintText: "Search Character...",
+                      hintStyle: const TextStyle(color: Colors.white70),
+                      prefixIcon: const Icon(Icons.search, color: Colors.white),
 
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(color: Colors.white54),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(color: Colors.white),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 48,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  children: House.values
-                      .where((house) => house != House.EMPTY)
-                      .map((house) {
-                        final isSelected = selectedHouse == house;
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: FilterChip(
-                            label: Text(houseValues.reverse[house] ?? ""),
-                            selected: isSelected,
-                            onSelected: (value) {
-                              setState(() {
-                                selectedHouse = value ? house : null;
-                              });
-                            },
-                            selectedColor: houseColor(house),
-                            checkmarkColor: houseTextColor(house),
-                            labelStyle: TextStyle(
-                              color: isSelected
-                                  ? houseTextColor(house)
-                                  : Colors.black,
-                              fontWeight: FontWeight.w600,
+                SizedBox(
+                  height: 48,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    children: House.values
+                        .where((house) => house != House.EMPTY)
+                        .map((house) {
+                          final isSelected = selectedHouse == house;
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: FilterChip(
+                              label: Text(houseValues.reverse[house] ?? ""),
+                              selected: isSelected,
+                              onSelected: (value) {
+                                setState(() {
+                                  selectedHouse = value ? house : null;
+                                });
+                              },
+                              backgroundColor: houseColor(house),
+                              selectedColor: houseColor(house),
+                              checkmarkColor: houseTextColor(house),
+                              labelStyle: TextStyle(
+                                color: houseTextColor(house),
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        );
-                      })
-                      .toList(),
+                          );
+                        })
+                        .toList(),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: filteredCharacters.length,
-                  itemBuilder: (context, index) {
-                    final item = filteredCharacters[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                HarryDetailViews(character: item),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(16, 20, 16, 1),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: filteredCharacters.length,
+                    itemBuilder: (context, index) {
+                      final item = filteredCharacters[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  HarryDetailViews(character: item),
+                            ),
+                          );
+                        },
                         child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 130,
-                                height: 180,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadiusGeometry.only(
-                                    topLeft: Radius.circular(16),
-                                    bottomLeft: Radius.circular(16),
-                                  ),
-                                  child: Image.network(
-                                    item.image,
-                                    fit: BoxFit.cover,
+                          margin: EdgeInsets.fromLTRB(16, 10, 16, 1),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 130,
+                                  height: 180,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadiusGeometry.only(
+                                      topLeft: Radius.circular(16),
+                                      bottomLeft: Radius.circular(16),
+                                    ),
+                                    child: Image.network(
+                                      item.image,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            item.species.toUpperCase(),
-                                            style: TextStyle(
-                                              color: speciesColor(item.species),
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 2,
-                                            ),
-                                          ),
-
-                                          Text(
-                                            item.name,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              color: Color(0xFFE2B84B),
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-
-                                          const SizedBox(height: 8),
-
-                                          Text(
-                                            item.actor,
-                                            style: TextStyle(
-                                              color: Colors.grey.shade400,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                      Row(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                selectedHouse =
-                                                    selectedHouse == item.house
-                                                    ? null
-                                                    : item.house;
-                                              });
-                                            },
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 18,
-                                                    vertical: 10,
-                                                  ),
-                                              decoration: BoxDecoration(
-                                                color: houseColor(item.house),
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              item.species.toUpperCase(),
+                                              style: TextStyle(
+                                                color: speciesColor(
+                                                  item.species,
+                                                ),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 2,
                                               ),
-                                              child: Text(
-                                                item.house.name.toUpperCase(),
-                                                style: TextStyle(
-                                                  color: houseTextColor(
-                                                    item.house,
+                                            ),
+
+                                            Text(
+                                              item.name,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: Color(0xFFE2B84B),
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+
+                                            const SizedBox(height: 8),
+
+                                            Text(
+                                              item.actor,
+                                              style: TextStyle(
+                                                color: Colors.grey.shade400,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedHouse =
+                                                      selectedHouse ==
+                                                          item.house
+                                                      ? null
+                                                      : item.house;
+                                                });
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 18,
+                                                      vertical: 10,
+                                                    ),
+                                                decoration: BoxDecoration(
+                                                  color: houseColor(item.house),
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                child: Text(
+                                                  item.house.name.toUpperCase(),
+                                                  style: TextStyle(
+                                                    color: houseTextColor(
+                                                      item.house,
+                                                    ),
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }
