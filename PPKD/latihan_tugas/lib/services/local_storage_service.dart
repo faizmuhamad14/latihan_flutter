@@ -40,6 +40,15 @@ class LocalStorageService {
     await _storage.delete(key: AppConstants.keyUser);
   }
 
+  // Profile photo storage (persisted across logouts)
+  static Future<void> saveLocalProfilePhoto(String email, String photo) async {
+    await _storage.write(key: 'profile_photo_$email', value: photo);
+  }
+
+  static Future<String?> getLocalProfilePhoto(String email) async {
+    return await _storage.read(key: 'profile_photo_$email');
+  }
+
   // Clear all session
   static Future<void> clearAll() async {
     await _storage.delete(key: AppConstants.keyToken);

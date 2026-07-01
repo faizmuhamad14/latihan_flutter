@@ -349,11 +349,16 @@ class _DashboardViewState extends State<DashboardView> {
     }
 
     String? photoUrl = user.profilePhoto;
-    if (photoUrl != null) {
+    if (photoUrl != null && photoUrl.isNotEmpty) {
       if (photoUrl.startsWith('http://127.0.0.1:8000')) {
         photoUrl = photoUrl.replaceFirst('http://127.0.0.1:8000', AppConstants.baseUrl);
-      } else if (photoUrl.startsWith('/')) {
-        photoUrl = '${AppConstants.baseUrl}$photoUrl';
+      }
+      if (photoUrl.contains('public/storage/')) {
+        photoUrl = photoUrl.replaceAll('public/storage/', 'storage/');
+      }
+      if (!photoUrl.startsWith('http://') && !photoUrl.startsWith('https://') && !photoUrl.startsWith('data:image')) {
+        final separator = photoUrl.startsWith('/') ? '' : '/';
+        photoUrl = '${AppConstants.baseUrl}$separator$photoUrl';
       }
     }
     final hasPhoto = photoUrl != null && photoUrl.isNotEmpty;
@@ -402,19 +407,37 @@ class _DashboardViewState extends State<DashboardView> {
                             ),
                           ],
                         ),
-                        child: CircleAvatar(
-                          radius: 65,
-                          backgroundColor: AppConstants.backgroundColor,
-                          backgroundImage: isBase64
-                              ? MemoryImage(base64Decode(photoUrl.split(',').last)) as ImageProvider
-                              : (hasPhoto ? NetworkImage(photoUrl) : null),
-                          child: !hasPhoto
-                              ? const Icon(
-                                  Icons.account_circle,
-                                  size: 130,
-                                  color: Colors.white38,
-                                )
-                              : null,
+                        child: Container(
+                          width: 130,
+                          height: 130,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppConstants.backgroundColor,
+                          ),
+                          child: ClipOval(
+                            child: isBase64
+                                ? Image.memory(
+                                    base64Decode(photoUrl.split(',').last),
+                                    fit: BoxFit.cover,
+                                  )
+                                : (hasPhoto
+                                    ? Image.network(
+                                        photoUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return const Icon(
+                                            Icons.account_circle,
+                                            size: 130,
+                                            color: Colors.white38,
+                                          );
+                                        },
+                                      )
+                                    : const Icon(
+                                        Icons.account_circle,
+                                        size: 130,
+                                        color: Colors.white38,
+                                      )),
+                          ),
                         ),
                       ),
                       if (isLoading)
@@ -632,11 +655,16 @@ class _DashboardViewState extends State<DashboardView> {
             itemBuilder: (context, index) {
               final usr = usersList[index];
               String? imgUrl = usr['profile_photo']?.toString();
-              if (imgUrl != null) {
+              if (imgUrl != null && imgUrl.isNotEmpty) {
                 if (imgUrl.startsWith('http://127.0.0.1:8000')) {
                   imgUrl = imgUrl.replaceFirst('http://127.0.0.1:8000', AppConstants.baseUrl);
-                } else if (imgUrl.startsWith('/')) {
-                  imgUrl = '${AppConstants.baseUrl}$imgUrl';
+                }
+                if (imgUrl.contains('public/storage/')) {
+                  imgUrl = imgUrl.replaceAll('public/storage/', 'storage/');
+                }
+                if (!imgUrl.startsWith('http://') && !imgUrl.startsWith('https://') && !imgUrl.startsWith('data:image')) {
+                  final separator = imgUrl.startsWith('/') ? '' : '/';
+                  imgUrl = '${AppConstants.baseUrl}$separator$imgUrl';
                 }
               }
               final hasImg = imgUrl != null && imgUrl.isNotEmpty;
@@ -650,14 +678,29 @@ class _DashboardViewState extends State<DashboardView> {
                   border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                 ),
                 child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: AppConstants.primaryColor,
-                    backgroundImage: isBase64
-                        ? MemoryImage(base64Decode(imgUrl.toString().split(',').last)) as ImageProvider
-                        : (hasImg ? NetworkImage(imgUrl) : null),
-                    child: !hasImg
-                        ? const Icon(Icons.person, color: Colors.white60)
-                        : null,
+                  leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppConstants.primaryColor,
+                    ),
+                    child: ClipOval(
+                      child: isBase64
+                          ? Image.memory(
+                              base64Decode(imgUrl.toString().split(',').last),
+                              fit: BoxFit.cover,
+                            )
+                          : (hasImg
+                              ? Image.network(
+                                  imgUrl,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Icon(Icons.person, color: Colors.white60);
+                                  },
+                                )
+                              : const Icon(Icons.person, color: Colors.white60)),
+                    ),
                   ),
                   title: Text(
                     usr['name'] ?? 'Guest',
